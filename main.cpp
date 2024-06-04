@@ -22,6 +22,7 @@ void novoJogo(bool &jogoRodando, COORD coord, Mapa &mapa, Jogador* jogador, Inim
             inimigo.contPassos = 0;
         }
         entrada.movimentos(jogador, mapa, bomba);
+        bomba.logicaBomba(mapa.mapaJogo, bomba);
         mapa.imprimeMapa(jogador, inimigo);
     }
 }
@@ -57,7 +58,8 @@ int main()
 
     Inimigo inimigo;
     inimigo.inicializa(5, 5, true);
-
+    Inimigo inimigo2;
+    inimigo2.inicializa(10, 10, true);
     Entrada entrada;
 
     Menu menu;

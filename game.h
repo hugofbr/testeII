@@ -54,8 +54,9 @@ struct Bomba
     Posicao pos;
     bool existeBomba;
 
-    void removeExplosao();
-    void espalhaExplosao();
+    void removeExplosao(int mapa[25][25], int bombaX, int bombaY);
+    void espalhaExplosao(int mapa[25][25], int bombaX, int bombaY);
+    void logicaBomba(int mapa[25][25], Bomba &bomba);
 
     clock_t comecaTempo, terminaTempo, totalTempo;
     void colocaBomba(Mapa &mapa, Jogador *jogador);

@@ -136,6 +136,8 @@ void Mapa::imprimeMapa(const Jogador *jogador, const Inimigo &inimigo)
     }
 }
 
+
+
 // Entradas
 char Entrada::opcaoMenu()
 {
@@ -188,9 +190,93 @@ void Entrada::movimentos(Jogador *jogador, Mapa &mapa, Bomba &bomba)
         }
     }
 }
+//bomba
+
+void Bomba::espalhaExplosao(int mapa[25][25], int bombaX, int bombaY){
+            //espalha vertical
+        int raio = 1;
+        for (int i = 1; i <= raio; i++){
+            if (mapa[bombaX - i][bombaY] == 0 || mapa[bombaX - i][bombaY] == 2){
+                mapa[bombaX - i][bombaY] = 4;
+            }
+        }
+
+        for (int i = 1; i <= raio; i++){
+            if (mapa[bombaX + i][bombaY] == 0 || mapa[bombaX + i][bombaY] == 2){
+                mapa[bombaX + i][bombaY] = 4;
+            }
+        }
+
+        //espalha horizontal
+            for (int i = 1; i <= raio; i++){
+            if (mapa[bombaX][bombaY - i] == 0 || mapa[bombaX][bombaY - i] == 2){
+                mapa[bombaX][bombaY - i] = 4;
+            }
+        }
+
+        for (int i = 1; i <= raio; i++){
+            if (mapa[bombaX][bombaY + i] == 0 || mapa[bombaX][bombaY + i] == 2){
+                mapa[bombaX][bombaY + i] = 4;
+            }
+        }
+}
+
+void Bomba::removeExplosao(int mapa[25][25], int bombaX, int bombaY){
+         //remove vertical
+        int raio = 1;
+        for (int i = 1; i <= raio; i++){
+            if (mapa[bombaX - i][bombaY] == 4){
+                mapa[bombaX - i][bombaY] = 0;
+            }
+        }
+
+        for (int i = 1; i <= raio; i++){
+            if (mapa[bombaX + i][bombaY] == 4){
+                mapa[bombaX + i][bombaY] = 0;
+            }
+        }
+
+        //remove horizontal
+        for (int i = 1; i <= raio; i++){
+            if (mapa[bombaX][bombaY - i] == 4){
+                mapa[bombaX][bombaY - i] = 0;
+            }
+        }
+
+        for (int i = 1; i <= raio; i++){
+            if (mapa[bombaX][bombaY + i] ==4){
+                mapa[bombaX][bombaY + i] = 0;
+            }
+        }
+   
+
+}
+
+void Bomba::logicaBomba(int mapa[25][25], Bomba &bomba){
+     if (bomba.existeBomba){
+            
+            bomba.terminaTempo = clock();
+            bomba.totalTempo = (bomba.terminaTempo - bomba.comecaTempo) / CLOCKS_PER_SEC;
+            //cout<<bomba.totalTempo;
+            if (bomba.totalTempo == 3){
+                
+                //cuidar da explosão da bomba
+                mapa[bomba.pos.x][bomba.pos.y] = 4;
+                bomba.espalhaExplosao(mapa, bomba.pos.x, bomba.pos.y);
+            }
+            if (bomba.totalTempo == 4){
+                //remove a explosão da bomba
+                mapa[bomba.pos.x][bomba.pos.y] = 0;
+                bomba.removeExplosao(mapa, bomba.pos.x, bomba.pos.y);
+                bomba.totalTempo = 0;
+                bomba.existeBomba = false;
+            }
+        }
+
+}
 
 void Bomba::colocaBomba(Mapa &mapa, Jogador* jogador)
-{
+{   
     if (!existeBomba)
     {
         existeBomba = true;
