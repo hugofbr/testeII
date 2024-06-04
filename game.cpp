@@ -101,11 +101,11 @@ void Mapa::imprimeMapa(const Jogador *jogador, const Inimigo &inimigo)
     {
         for (int j = 0; j < 25; j++)
         {
-            if (i == jogador->pos.x && j == jogador->pos.y)
+            if (i == jogador->pos.x && j == jogador->pos.y && jogador->vivo)
             {
                 cout << char(1); // jogador
             }
-            else if (i == inimigo.pos.x && j == inimigo.pos.y)
+            else if (i == inimigo.pos.x && j == inimigo.pos.y && inimigo.vivo)
             {
                 cout << char(5); // inimigo
             }

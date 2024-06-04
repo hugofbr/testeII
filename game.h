@@ -20,7 +20,7 @@ struct Posicao
 struct Jogador
 {
     Posicao pos;
-    bool vivo;
+    bool vivo=true;
 
     void mover(int novaPosX, int novaPosY);
     bool colisaoJogador(int mapa[25][25], int x, int y);
@@ -29,7 +29,7 @@ struct Jogador
 struct Inimigo
 {
     Posicao pos;
-    bool vivo;
+    bool vivo=true;
     int contPassos;
 
     void inicializa(int x, int y, bool flag);
