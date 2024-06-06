@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void logicaJogo(Mapa mapa, Jogador* jogador, Inimigo inimigo, bool &jogoRodando){
+void danoJogador(Mapa mapa, Jogador* jogador, Inimigo inimigo, bool &jogoRodando){
      if (mapa.mapaJogo[jogador->pos.x][jogador->pos.y] == 4 || (jogador->pos.x == inimigo.pos.x && jogador->pos.y == inimigo.pos.y && inimigo.vivo)){
         jogoRodando = false;
     }
@@ -35,7 +35,7 @@ void novoJogo(bool &jogoRodando, COORD coord, Mapa &mapa, Jogador* jogador, Inim
             inimigo.contPassos = 0;
         }
         entrada.movimentos(jogador, mapa, bomba);
-        logicaJogo(mapa, jogador, inimigo, jogoRodando);
+        danoJogador(mapa, jogador, inimigo, jogoRodando);
         bomba.logicaBomba(mapa.mapaJogo, bomba);
         danoInimigo(mapa, inimigo);
         mapa.imprimeMapa(jogador, inimigo);
